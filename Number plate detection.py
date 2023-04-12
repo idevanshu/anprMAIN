@@ -43,7 +43,7 @@ while True:
             result = reader.readtext(imgRoi)
             if result:
                 plateNumber = result[0][1]
-                cv2.putText(img, plateNumber, (x, y - 5), cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2)
+                
             cv2.imshow("ROI", imgRoi)
 
     cv2.imshow("Result", img)
@@ -54,8 +54,7 @@ while True:
     if plateNumber == visited[0]:
         print("Vehicle detected")
         # ss
-        ss = pyautogui.screenshot()
-        ss.save(f'numplate_img/img{count}.png')
+        cv2.imwrite(f"numplate_img/img{count}.png",img)
         break
 
     if cv2.waitKey(1) & 0xFF == ord('s'):
@@ -83,8 +82,7 @@ img_data = Image.open("numplate_img/img0.png")
 numpydata = np.asarray(img_data)
 enhanced_img = imgenhancer.enhance_image(numpydata , parameters)
 
-plt.subplot(1,2,2)
-plt.imshow(enhanced_img, vmin=0, vmax=255)
+plt.imshow(enhanced_img)
 plt.title('Enhanced image')
 plt.axis('off')
 plt.tight_layout()
